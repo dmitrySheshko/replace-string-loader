@@ -1,3 +1,8 @@
+/**
+ * MIT License http://www.opensource.org/licenses/mit-license.php
+ * Author Dmitry Sheshko
+ * dm.sheshko@gmail.com
+ */
 import fs from 'fs';
 
 module.exports = function(source, map) {
