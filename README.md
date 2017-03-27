@@ -13,6 +13,8 @@ file: true/false
 ```
 
 ## Usage:
+Search and replace all search (105px) in scss files and replace it to 200px. Result will save to a json file.
+
 ```
 module: {
         rules: [{
@@ -28,6 +30,25 @@ module: {
                 }]
         }]
     }
+```
+Json file:
+```
+{
+    "file": "[last-file-folder][file-name][ext]",
+    "fullFilePath": "full-path-to-file/main.scss",
+    "matches": [
+        {
+            "matchLine": 12,
+            "matchContent": "min-height: 105px;",
+            "replaceTo": "min-height: 200px;"
+        },
+        {
+            "matchLine": 22,
+            "matchContent": "min-height: 105px;",
+            "replaceTo": "min-height: 200px;"
+        }
+    ]
+}
 ```
 
 ```
