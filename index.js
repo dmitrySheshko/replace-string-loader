@@ -1,8 +1,3 @@
-/**
- * MIT License http://www.opensource.org/licenses/mit-license.php
- * Author Dmitry Sheshko
- * dm.sheshko@gmail.com
- */
 import fs from 'fs';
 
 module.exports = function(source, map) {
@@ -18,7 +13,7 @@ module.exports = function(source, map) {
             fullFilePath: '',
             matches: []
         };
-        source = replaceString(source, regExp, replace, searchMap, flags);
+        source = replaceString(source, regExp, replace, searchMap);
         if(file) {
             createMatchFile(fullFilePath, searchMap);
         }
@@ -26,7 +21,7 @@ module.exports = function(source, map) {
     this.callback(null, source, map);
 };
 
-function replaceString(source, regExp, replace, fileMap, flags){
+function replaceString(source, regExp, replace, fileMap){
     let sourceByLines = source.split('\n');
     let replaceSource = [];
     let line;
@@ -36,7 +31,7 @@ function replaceString(source, regExp, replace, fileMap, flags){
             line = line.replace(regExp, replace);
             fileMap.matches.push(setMatch(i, sourceByLines[i], line));
             replaceSource.push(line);
-            if(!isGlobalReplace(flags)){
+            if(!regExp.global){
                 replaceSource = replaceSource.concat(sourceByLines.slice(i));
                 break;
             }
@@ -52,10 +47,6 @@ function isUndefined(value) {
     return value === undefined;
 }
 
-function isGlobalReplace(flags){
-    return ~flags.indexOf('g');
-}
-
 function getRegExp(search, flags){
     if(typeof search !== 'object') {
         search = new RegExp(search, flags);
@@ -65,7 +56,11 @@ function getRegExp(search, flags){
 
 function basename(name) {
     if(name.indexOf("/") < 0) return name;
-    return name.substr(name.lastIndexOf("/") + 1);
+
+    let directories = name.split('/');
+    let lastDirectory = directories[directories.length - 2];
+    name = directories[directories.length - 1];
+    return `${lastDirectory}-${name}`;
 }
 
 function setMatch(line, context, replace){
@@ -83,8 +78,32 @@ function createMatchFile(fullFilePath, searchMap){
     searchMap.file = fileName;
     searchMap.fullFilePath = fullFilePath;
 
+    checkFolder(path);
+
+    searchMap.matches = searchMap.matches.concat(getFileMatches(path, fileName, fullFilePath));
+
+    fs.writeFile(`${path + fileName}.json`, JSON.stringify(searchMap, null, 4), 'utf8');
+}
+
+function checkFolder(path){
     if (!fs.existsSync(path)){
         fs.mkdirSync(path);
     }
-    fs.writeFile(`${path + fileName}.json`, JSON.stringify(searchMap, null, 4));
+}
+
+function getFileMatches(path, fileName, fullFilePath){
+    let filePath = `${path + fileName}.json`;
+    let matches = [];
+    if(fs.existsSync(filePath)){
+        let data = {};
+        try{
+            data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+        }
+        catch(e){}
+
+        if(data.fullFilePath == fullFilePath){
+            matches = data.matches;
+        }
+    }
+    return matches;
 }
