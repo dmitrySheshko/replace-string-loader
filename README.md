@@ -70,3 +70,18 @@ module: {
         }]
     }
 ```
+Searching and replacing 'exampleVarA' to 'exampleVarB' in js files in the example below. 
+```
+module: {
+        rules: [{
+            test: /\.js$/,
+            use[{
+                    loader: 'replace-string-loader',
+                    options: {
+                        search: /exampleVarA/g,
+                        replace: 'exampleVarB'
+                    }
+                }]
+        }]
+    }
+```
