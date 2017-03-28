@@ -1,5 +1,4 @@
 # Webpack loader for replacing a text and other data in a file
-# replace-string-loader
 ## Instalation:
 ```
 npm install --save-dev replace-string-loader
@@ -12,13 +11,14 @@ options: {
     flags: "string",
     file: bool
 }
-search - a string or a regular expresion what will find in replace in a file. 
-replace - string to replace a match string.
-flags - regExp flags (g, i, m) Use if search is string and ignore if search is regExp.
-file: if true - a match result will save to a file.
+search: a string or a regular expresion that will be found and replaced in the file.
+replace: a string for replacing.
+flags: regExp flags (g, i, m). Used if options.search is a string and ignored if options.search is a regular expresion.
+file: if true - a found result will save to the file.
 ```
 ## Usage:
-Search and replace all (flags: 'g' - global search) search text ('105px') in scss files and replace matches to a replace text ('200px'). Result will save to a json file.
+Searching and replacing '105px' to '200px' in scss files in the example below. 
+Result will be saved to a json file.
 ```
 module: {
         rules: [{
@@ -35,7 +35,7 @@ module: {
         }]
     }
 ```
-Json file:
+An output json file:
 ```
 {
     "file": "[last-file-folder][file-name].[ext]",
@@ -54,7 +54,7 @@ Json file:
     ]
 }
 ```
-or, without saving to a file
+or, without saving into the file
 ```
 module: {
         rules: [{

@@ -3,7 +3,7 @@
  * Author Dmitry Sheshko
  * dm.sheshko@gmail.com
  */
-import fs from 'fs';
+const fs = require('fs');
 
 module.exports = function(source, map) {
     let loader = this;
