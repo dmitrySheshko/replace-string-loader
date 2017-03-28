@@ -1,4 +1,4 @@
-# Loader for replace a string
+# Webpack loader for replace a text and other data in a file
 # replace-string-loader
 ## Instalation:
 ```
@@ -6,21 +6,25 @@ npm install --save-dev
 ```
 ## Options:
 ```
-search - string/RegExp
-replace - string
-flags - string gim
-file: true/false
+options: {
+    search: "string or /regExp/",
+    replace: "string",
+    flags: "string",
+    file: bool
+}
+search - a string or a regular expresion what will find in replace in a file. 
+replace - string to replace a match string.
+flags - regExp flags (g, i, m) Use if search is string and ignore if search is regExp.
+file: if true - a match result will save to a file.
 ```
-
 ## Usage:
-Search and replace all search (105px) in scss files and replace it to 200px. Result will save to a json file.
-
+Search and replace all (flags: 'g' - global search) search text ('105px') in scss files and replace matches to a replace text ('200px'). Result will save to a json file.
 ```
 module: {
         rules: [{
             test: /\.scss$/,
             use[{
-                    loader: 'test-loader',
+                    loader: 'replace-string-loader',
                     options: {
                         search: '105px',
                         replace: '200px',
@@ -34,8 +38,8 @@ module: {
 Json file:
 ```
 {
-    "file": "[last-file-folder][file-name][ext]",
-    "fullFilePath": "full-path-to-file/main.scss",
+    "file": "[last-file-folder][file-name].[ext]",
+    "fullFilePath": "full-path-to-file/[file-name].[ext]",
     "matches": [
         {
             "matchLine": 12,
@@ -50,13 +54,13 @@ Json file:
     ]
 }
 ```
-
+or, without saving to a file
 ```
 module: {
         rules: [{
             test: /\.scss$/,
             use[{
-                    loader: 'test-loader',
+                    loader: 'replace-string-loader',
                     options: {
                         search: /105px/g,
                         replace: '200px',

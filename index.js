@@ -7,6 +7,9 @@ import fs from 'fs';
 
 module.exports = function(source, map) {
     let loader = this;
+
+    if(loader.cacheable) loader.cacheable();
+
     let { flags, search, replace, file } = loader.query;
 
     if(!isUndefined(search) && !isUndefined(replace)){
@@ -87,7 +90,7 @@ function createMatchFile(fullFilePath, searchMap){
 
     searchMap.matches = searchMap.matches.concat(getFileMatches(path, fileName, fullFilePath));
 
-    fs.writeFile(`${path + fileName}.json`, JSON.stringify(searchMap, null, 4), 'utf8');
+    fs.writeFileSync(`${path + fileName}.json`, JSON.stringify(searchMap, null, 4), 'utf8');
 }
 
 function checkFolder(path){
