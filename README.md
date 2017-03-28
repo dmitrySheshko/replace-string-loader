@@ -18,12 +18,12 @@ replace: a string or a function for replacing.
         p1, p2, ..., pn – string content (if exist),
         offset – position where the match was found,
         s – a basic string.
-    ##The function must return a string!!!
+    The function must return a string!!!
 flags: regExp flags (g, i, m). Used if options.search is a string and ignored if options.search is a regular expression.
 file: if true - a found result will save to the file.
 ```
 ## Usage:
-Searching and replacing '105px' to '200px' in scss files in the example below. 
+Searching and replacing '105px' to '200px' in scss files: 
 Result will be saved to a json file.
 ```
 module: {
@@ -76,7 +76,7 @@ module: {
         }]
     }
 ```
-Searching and replacing 'exampleVarA' to 'exampleVarB' in js files in the example below. 
+Searching and replacing 'exampleVarA' to 'exampleVarB' in js files:
 ```
 module: {
         rules: [{
@@ -86,6 +86,21 @@ module: {
                     options: {
                         search: /exampleVarA/g,
                         replace: 'exampleVarB'
+                    }
+                }]
+        }]
+    }
+```
+Searching and replacing '105px' to '1050px' in css files:
+```
+module: {
+        rules: [{
+            test: /\.css$/,
+            use[{
+                    loader: 'replace-string-loader',
+                    options: {
+                        search: '105px',
+                        replace: function(match){ return `${parseInt(match) * 10}px`;}
                     }
                 }]
         }]
