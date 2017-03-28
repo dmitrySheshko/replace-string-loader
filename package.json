@@ -1,7 +1,7 @@
 {
   "name": "replace-string-loader",
   "version": "0.0.1",
-  "description": "Webpack loader for replace a text and other data in a file",
+  "description": "Webpack loader for replacing a text and other data in a file",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

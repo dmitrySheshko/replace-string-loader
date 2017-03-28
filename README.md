@@ -1,8 +1,8 @@
-# Webpack loader for replace a text and other data in a file
+# Webpack loader for replacing a text and other data in a file
 # replace-string-loader
 ## Instalation:
 ```
-npm install --save-dev
+npm install --save-dev replace-string-loader
 ```
 ## Options:
 ```
