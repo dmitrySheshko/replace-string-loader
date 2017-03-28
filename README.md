@@ -7,13 +7,19 @@ npm install --save-dev replace-string-loader
 ```
 options: {
     search: "string or /regExp/",
-    replace: "string",
+    replace: "string or function",
     flags: "string",
     file: bool
 }
-search: a string or a regular expresion that will be found and replaced in the file.
-replace: a string for replacing.
-flags: regExp flags (g, i, m). Used if options.search is a string and ignored if options.search is a regular expresion.
+search: a string or a regular expression that will be found and replaced in the file.  
+replace: a string or a function for replacing. 
+    If an options.replace is a function: this function recieves next arguments:
+        match – a found match,
+        p1, p2, ..., pn – string content (if exist),
+        offset – position where the match was found,
+        s – a basic string.
+    ##The function must return a string!!!
+flags: regExp flags (g, i, m). Used if options.search is a string and ignored if options.search is a regular expression.
 file: if true - a found result will save to the file.
 ```
 ## Usage:

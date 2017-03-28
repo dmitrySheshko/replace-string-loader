@@ -1,6 +1,6 @@
 {
   "name": "replace-string-loader",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Webpack loader for replacing a text and other data in a file",
   "main": "index.js",
   "scripts": {
