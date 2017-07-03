@@ -19,7 +19,7 @@
     "replace-string-loader",
     "regexp-replace"
   ],
-  "author": "Dmitry Sheshko",
+  "author": "Dmitry Sheshko, dm.sheshko@gmail.com",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/dmitrySheshko/replace-string-loader/issues"
